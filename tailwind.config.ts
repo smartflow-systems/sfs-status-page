@@ -76,10 +76,9 @@ export default {
           border: "var(--sidebar-accent-border)"
         },
         status: {
-          online: "rgb(34 197 94)",
-          away: "rgb(245 158 11)",
-          busy: "rgb(239 68 68)",
-          offline: "rgb(156 163 175)",
+          operational: "hsl(142 76% 36%)",
+          degraded: "hsl(43 96% 56%)",
+          down: "hsl(0 84% 60%)",
         },
       },
       fontFamily: {
