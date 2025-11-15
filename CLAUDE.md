@@ -30,7 +30,9 @@ This document provides comprehensive guidance for AI assistants working on this 
 - Track response times and uptime metrics
 - Provide internal dashboard for service management
 
-The application is inspired by Linear's clean productivity patterns and Vercel's transparent status page design.
+**Part of SmartFlow Systems (SFS) Family** - This application uses the **SFS design system** with the signature blue color palette (`hsl(221 83% 53%)`), matching the SmartFlowSite brand identity. All SFS applications share consistent design patterns, color schemes, and component libraries.
+
+The application is inspired by Linear's clean productivity patterns and Vercel's transparent status page design, while maintaining SFS brand guidelines.
 
 ---
 
@@ -529,16 +531,32 @@ See `design_guidelines.md` for comprehensive design specifications. Key principl
 
 ### Tailwind Configuration
 
-Custom design tokens in `tailwind.config.ts`:
+**Brand Color System** - Uses **SFS Blue** as primary brand color (matching SmartFlowSite):
 
 ```typescript
+// Primary Brand Color - SFS Blue
+--primary: 221 83% 53%;              // SFS signature blue
+--primary-foreground: 210 40% 98%;
+
 // Status colors (use these for service status)
 status: {
-  operational: "hsl(142 76% 36%)",  // Green
-  degraded: "hsl(43 96% 56%)",       // Yellow
-  down: "hsl(0 84% 60%)",            // Red
+  operational: "hsl(142 76% 36%)",   // Green
+  degraded: "hsl(43 96% 56%)",        // Yellow
+  down: "hsl(0 84% 60%)",             // Red
 }
+
+// Chart colors (SFS palette)
+--chart-1: 221 83% 45%;  // SFS Blue
+--chart-2: 142 76% 36%;  // Green
+--chart-3: 280 65% 47%;  // Purple
+--chart-4: 24 95% 53%;   // Orange
+--chart-5: 340 82% 52%;  // Pink
 ```
+
+**Font Stack**:
+- Sans: Inter, -apple-system, BlinkMacSystemFont, sans-serif
+- Serif: Georgia, serif
+- Mono: JetBrains Mono, Menlo, monospace
 
 ### Typography System
 
