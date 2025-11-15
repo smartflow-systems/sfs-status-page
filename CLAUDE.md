@@ -30,7 +30,7 @@ This document provides comprehensive guidance for AI assistants working on this 
 - Track response times and uptime metrics
 - Provide internal dashboard for service management
 
-**Part of SmartFlow Systems (SFS) Family** - This application uses the **SFS design system** with the signature blue color palette (`hsl(221 83% 53%)`), matching the SmartFlowSite brand identity. All SFS applications share consistent design patterns, color schemes, and component libraries.
+**Part of SmartFlow Systems (SFS) Family** - This application uses the **SFS design system** with the luxury **gold/brown/black** color palette, matching the SmartFlowSite brand identity. The theme features sparkling gold (`#FFD700`) against a dark marble brown-tinted black (`#0D0D0D`) background with glassmorphism effects and circuit-flow animations. All SFS applications share consistent design patterns, color schemes, and component libraries.
 
 The application is inspired by Linear's clean productivity patterns and Vercel's transparent status page design, while maintaining SFS brand guidelines.
 
@@ -531,12 +531,24 @@ See `design_guidelines.md` for comprehensive design specifications. Key principl
 
 ### Tailwind Configuration
 
-**Brand Color System** - Uses **SFS Blue** as primary brand color (matching SmartFlowSite):
+**Brand Color System** - Uses **SFS Gold/Brown/Black** luxury palette (matching SmartFlowSite):
 
 ```typescript
-// Primary Brand Color - SFS Blue
---primary: 221 83% 53%;              // SFS signature blue
---primary-foreground: 210 40% 98%;
+// SFS Brand Colors (NO BLUE!)
+--sf-black: #0D0D0D;                 // Marble black background
+--sf-brown: #3B2F2F;                 // Brown surface overlays
+--sf-gold: #FFD700;                  // Primary gold accent
+--sf-gold-2: #E6C200;                // Gold hover state
+--sf-beige: #F5F5DC;                 // Text on dark backgrounds
+
+// Semantic HSL Tokens
+--background: 0 0% 5%;               // Black
+--foreground: 48 10% 98%;            // Beige/white text
+--primary: 51 100% 50%;              // Gold
+--primary-foreground: 0 0% 5%;       // Black on gold
+--secondary: 30 15% 18%;             // Brown
+--border: 45 15% 20%;                // Brown-tinted borders
+--card-border: 51 50% 25%;           // Gold-tinted card borders
 
 // Status colors (use these for service status)
 status: {
@@ -545,18 +557,30 @@ status: {
   down: "hsl(0 84% 60%)",             // Red
 }
 
-// Chart colors (SFS palette)
---chart-1: 221 83% 45%;  // SFS Blue
---chart-2: 142 76% 36%;  // Green
---chart-3: 280 65% 47%;  // Purple
---chart-4: 24 95% 53%;   // Orange
---chart-5: 340 82% 52%;  // Pink
+// Chart Colors - Gold palette
+--chart-1: 51 100% 50%;              // Gold
+--chart-2: 51 91% 45%;               // Gold-2
+--chart-3: 45 100% 40%;              // Darker gold
+--chart-4: 30 15% 18%;               // Brown
+--chart-5: 48 56% 91%;               // Beige
+
+// Glassmorphism
+--sf-blur: 12px;                     // Card backdrop blur
+--glass-bg: rgba(59, 47, 47, 0.4);   // Semi-transparent brown
+--glass-border: rgba(255, 215, 0, 0.15); // Gold border
+--shadow-glow: 0 12px 48px 0 rgba(255, 215, 0, 0.15); // Gold glow on hover
 ```
 
 **Font Stack**:
 - Sans: Inter, -apple-system, BlinkMacSystemFont, sans-serif
 - Serif: Georgia, serif
-- Mono: JetBrains Mono, Menlo, monospace
+- Mono: Fira Code, JetBrains Mono, Menlo, monospace
+
+**Circuit Flow Animation**:
+- Golden animated nodes with physics-based movement
+- Dynamic connection lines between nearby nodes
+- Background canvas animation at 40% opacity
+- Auto-pauses when tab is inactive for performance
 
 ### Typography System
 

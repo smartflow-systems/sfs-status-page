@@ -80,6 +80,13 @@ export default {
           degraded: "hsl(43 96% 56%)",
           down: "hsl(0 84% 60%)",
         },
+        // SFS Brand Colors
+        'sf-black': '#0D0D0D',
+        'sf-brown': '#3B2F2F',
+        'sf-gold': '#FFD700',
+        'sf-gold-bright': '#FFDD00',
+        'sf-gold-2': '#E6C200',
+        'sf-beige': '#F5F5DC',
       },
       fontFamily: {
         sans: ["Inter", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
