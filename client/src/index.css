@@ -2,6 +2,132 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+ * SFS (SmartFlow Systems) Theme - Gold/Brown/Black Luxury
+ * Sparkling gold against dark marble brown-tinted black
+ * NO BLUE - This is the SFS family brand
+ */
+
+:root {
+  /* ===== SFS Brand Colors (Hex) ===== */
+  --sf-black: #0D0D0D;
+  --sf-brown: #3B2F2F;
+  --sf-gold: #FFD700;
+  --sf-gold-bright: #FFDD00;
+  --sf-gold-2: #E6C200;
+  --sf-beige: #F5F5DC;
+  --sf-white: #FFFFFF;
+
+  /* ===== Semantic HSL Tokens (shadcn/ui compatible) ===== */
+  --background: 0 0% 5%;                /* Marble black */
+  --foreground: 48 10% 98%;             /* Beige/white text */
+  --card: 0 0% 8%;                      /* Card background */
+  --card-foreground: 48 10% 98%;
+  --card-border: 51 50% 25%;            /* Gold-tinted border */
+  --popover: 0 0% 7%;
+  --popover-foreground: 48 10% 98%;
+  --popover-border: 45 15% 20%;
+
+  /* Primary = Gold */
+  --primary: 51 100% 50%;               /* SFS Gold */
+  --primary-foreground: 0 0% 5%;        /* Black text on gold */
+
+  /* Secondary = Brown */
+  --secondary: 30 15% 18%;              /* SFS Brown */
+  --secondary-foreground: 48 10% 98%;
+
+  --muted: 30 10% 12%;
+  --muted-foreground: 45 10% 65%;
+
+  /* Accent = Gold hover state */
+  --accent: 51 91% 45%;                 /* Gold-2 */
+  --accent-foreground: 0 0% 5%;
+
+  --destructive: 0 72% 51%;
+  --destructive-foreground: 48 10% 98%;
+
+  --border: 45 15% 20%;                 /* Brown-tinted borders */
+  --input: 45 15% 25%;
+  --ring: 51 100% 50%;                  /* Gold focus ring */
+
+  /* Sidebar */
+  --sidebar: 0 0% 6%;
+  --sidebar-foreground: 48 10% 98%;
+  --sidebar-border: 45 15% 15%;
+  --sidebar-primary: 51 100% 50%;       /* Gold */
+  --sidebar-primary-foreground: 0 0% 5%;
+  --sidebar-accent: 30 15% 18%;         /* Brown */
+  --sidebar-accent-foreground: 48 10% 98%;
+  --sidebar-ring: 51 100% 50%;
+
+  /* Chart Colors - Gold palette */
+  --chart-1: 51 100% 50%;               /* Gold */
+  --chart-2: 51 91% 45%;                /* Gold-2 */
+  --chart-3: 45 100% 40%;               /* Darker gold */
+  --chart-4: 30 15% 18%;                /* Brown */
+  --chart-5: 48 56% 91%;                /* Beige */
+
+  /* ===== Glassmorphism & Elevation ===== */
+  --sf-blur: 12px;
+  --sf-blur-panel: 16px;
+  --elevate-1: rgba(255, 215, 0, 0.06); /* Gold tint */
+  --elevate-2: rgba(255, 215, 0, 0.14);
+  --button-outline: rgba(255, 215, 0, .15);
+  --badge-outline: rgba(255, 215, 0, .10);
+  --glass-bg: rgba(59, 47, 47, 0.4);    /* Semi-transparent brown */
+  --glass-border: rgba(255, 215, 0, 0.15);
+  --glass-glow: rgba(255, 215, 0, 0.15);
+
+  /* ===== Shadows with Gold Glow ===== */
+  --shadow-sm: 0px 2px 4px -1px rgba(0,0,0,0.35), 0px 1px 2px -1px rgba(0,0,0,0.50);
+  --shadow-md: 0px 6px 10px -2px rgba(0,0,0,0.45), 0px 2px 4px -2px rgba(0,0,0,0.35);
+  --shadow-lg: 0px 10px 15px -3px rgba(0,0,0,0.50), 0px 4px 6px -4px rgba(0,0,0,0.40);
+  --shadow-xl: 0px 20px 25px -5px rgba(0,0,0,0.55), 0px 8px 10px -6px rgba(0,0,0,0.40);
+  --shadow-glow: 0 12px 48px 0 rgba(255, 215, 0, 0.15);
+
+  /* ===== Typography ===== */
+  --font-sans: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: Georgia, serif;
+  --font-mono: 'Fira Code', 'JetBrains Mono', Menlo, monospace;
+
+  /* ===== Spacing & Radius ===== */
+  --radius: 1rem;
+  --sf-radius: 1rem;
+  --spacing: 0.25rem;
+
+/* Fallback for older browsers */
+  --sidebar-primary-border: hsl(var(--sidebar-primary));
+  --sidebar-primary-border: hsl(from hsl(var(--sidebar-primary)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
+
+  /* Fallback for older browsers */
+  --sidebar-accent-border: hsl(var(--sidebar-accent));
+  --sidebar-accent-border: hsl(from hsl(var(--sidebar-accent)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
+
+  /* Fallback for older browsers */
+  --primary-border: hsl(var(--primary));
+  --primary-border: hsl(from hsl(var(--primary)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
+
+  /* Fallback for older browsers */
+  --secondary-border: hsl(var(--secondary));
+  --secondary-border: hsl(from hsl(var(--secondary)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
+
+  /* Fallback for older browsers */
+  --muted-border: hsl(var(--muted));
+  --muted-border: hsl(from hsl(var(--muted)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
+
+  /* Fallback for older browsers */
+  --accent-border: hsl(var(--accent));
+  --accent-border: hsl(from hsl(var(--accent)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
+
+  /* Fallback for older browsers */
+  --destructive-border: hsl(var(--destructive));
+  --destructive-border: hsl(from hsl(var(--destructive)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
+}
+
+/*
+ * SFS is a DARK-FIRST theme (no light mode)
+ * The luxury aesthetic requires dark backgrounds
+ */
 /* ============================================================================
    # SFS FAMILY THEME - TAILWIND INTEGRATION
    # Luxurious gold & marble color scheme for status page
@@ -108,6 +234,19 @@
 
   body {
     @apply font-sans antialiased bg-background text-foreground;
+    background-color: var(--sf-black);
+  }
+
+  /* Circuit flow canvas background */
+  #sfs-circuit {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.4;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -218,6 +357,56 @@
     @apply text-sm font-semibold backdrop-blur-sm;
   }
 
+  /* ===== Glassmorphism Card Styles ===== */
+  .glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--sf-blur));
+    -webkit-backdrop-filter: blur(var(--sf-blur));
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 8px 32px 0 rgba(13, 13, 13, 0.37);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .glass-card:hover {
+    border-color: rgba(255, 215, 0, 0.3);
+    box-shadow: var(--shadow-glow);
+  }
+
+  .glass-panel {
+    background: rgba(13, 13, 13, 0.6);
+    backdrop-filter: blur(var(--sf-blur-panel));
+    -webkit-backdrop-filter: blur(var(--sf-blur-panel));
+    border: 1px solid rgba(255, 215, 0, 0.25);
+  }
+
+  .glass-header {
+    background: rgba(13, 13, 13, 0.8);
+    backdrop-filter: blur(var(--sf-blur));
+    -webkit-backdrop-filter: blur(var(--sf-blur));
+    border-bottom: 1px solid var(--glass-border);
+  }
+
+  /* Gold gradient text effect */
+  .text-gold-gradient {
+    background: linear-gradient(135deg, var(--sf-gold), var(--sf-gold-2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Circuit flow animation placeholder */
+  .circuit-flow-bg {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .circuit-flow-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(255, 215, 0, 0.05), transparent 70%);
+    pointer-events: none;
+  }
   /* ## Gold Text Gradient */
   .text-gold-gradient {
     @apply bg-gradient-to-br from-[#f4e4c1] via-[#d4af37] to-[#b8962e];

@@ -17,103 +17,56 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Activity, AlertTriangle, TrendingUp, Search, Eye } from "lucide-react";
+import { Activity, AlertTriangle, TrendingUp, Search, Eye, Loader2 } from "lucide-react";
 import { Link } from "wouter";
+import { useServices, useIncidents, useSystemStatus } from "@/hooks/useApi";
 
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState("overview");
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
 
-  const services = [
-    {
-      name: "API Server",
-      type: "api" as const,
-      status: "operational" as const,
-      uptime: "99.9",
-      responseTime: 123,
-    },
-    {
-      name: "Main Website",
-      type: "website" as const,
-      status: "operational" as const,
-      uptime: "100.0",
-      responseTime: 89,
-    },
-    {
-      name: "Database",
-      type: "database" as const,
-      status: "operational" as const,
-      uptime: "99.7",
-      responseTime: 256,
-    },
-    {
-      name: "CDN",
-      type: "cdn" as const,
-      status: "operational" as const,
-      uptime: "100.0",
-      responseTime: 45,
-    },
-    {
-      name: "Auth Service",
-      type: "api" as const,
-      status: "operational" as const,
-      uptime: "99.8",
-      responseTime: 178,
-    },
-    {
-      name: "Cache Server",
-      type: "database" as const,
-      status: "operational" as const,
-      uptime: "99.9",
-      responseTime: 12,
-    },
-  ];
+  // Fetch real data from API
+  const { data: services = [], isLoading: servicesLoading, error: servicesError } = useServices();
+  const { data: incidents = [], isLoading: incidentsLoading, error: incidentsError } = useIncidents(false);
+  const { data: systemStatus, isLoading: statusLoading, error: statusError } = useSystemStatus();
 
-  const incidents = [
-    {
-      title: "API Response Time Degradation",
-      affectedServices: ["API Server", "Database"],
-      status: "resolved" as const,
-      startedAt: "Yesterday at 2:30 PM",
-      updates: [
-        {
-          timestamp: "Yesterday at 4:15 PM",
-          status: "resolved" as const,
-          message: "Issue has been fully resolved. All systems are operating normally.",
-        },
-        {
-          timestamp: "Yesterday at 3:45 PM",
-          status: "monitoring" as const,
-          message: "Response times have improved. Continuing to monitor the situation.",
-        },
-        {
-          timestamp: "Yesterday at 2:30 PM",
-          status: "investigating" as const,
-          message: "We are investigating elevated API response times.",
-        },
-      ],
-    },
-    {
-      title: "Scheduled Database Maintenance",
-      affectedServices: ["Database"],
-      status: "resolved" as const,
-      startedAt: "3 days ago",
-      updates: [
-        {
-          timestamp: "3 days ago",
-          status: "resolved" as const,
-          message: "Maintenance completed successfully. All systems operational.",
-        },
-      ],
-    },
-  ];
-
+  // Filter services
   const filteredServices = services.filter((service) => {
     const matchesSearch = service.name.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesStatus = statusFilter === "all" || service.status === statusFilter;
     return matchesSearch && matchesStatus;
   });
+
+  // Show loading state
+  if (servicesLoading || incidentsLoading || statusLoading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="flex flex-col items-center gap-4">
+          <Loader2 className="w-8 h-8 animate-spin text-primary" />
+          <p className="text-muted-foreground">Loading dashboard...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Show error state
+  if (servicesError || incidentsError || statusError) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <Card className="max-w-md w-full">
+          <CardContent className="p-8 text-center">
+            <AlertTriangle className="w-12 h-12 text-destructive mx-auto mb-4" />
+            <h2 className="text-xl font-semibold mb-2">Failed to Load Dashboard</h2>
+            <p className="text-muted-foreground mb-4">
+              {servicesError?.message || incidentsError?.message || statusError?.message}
+            </p>
+            <Button onClick={() => window.location.reload()}>Reload Page</Button>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -143,24 +96,24 @@ export default function Dashboard() {
           </TabsList>
 
           <TabsContent value="overview" className="space-y-6 mt-6">
-            <SystemStatusBanner status="operational" />
+            <SystemStatusBanner status={systemStatus?.status || "operational"} />
 
             <div className="grid gap-6 md:grid-cols-3">
               <MetricCard
                 title="Total Services"
-                value={services.length}
+                value={systemStatus?.totalServices || 0}
                 icon={Activity}
                 description="Monitored endpoints"
               />
               <MetricCard
                 title="Active Incidents"
-                value={0}
+                value={systemStatus?.activeIncidents || 0}
                 icon={AlertTriangle}
                 description="Currently investigating"
               />
               <MetricCard
                 title="Average Uptime"
-                value="99.8%"
+                value={`${systemStatus?.averageUptime || "0.00"}%`}
                 icon={TrendingUp}
                 description="Last 30 days"
               />
@@ -174,8 +127,12 @@ export default function Dashboard() {
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {services.map((service) => (
                 <ServiceCard
-                  key={service.name}
-                  {...service}
+                  key={service.id}
+                  name={service.name}
+                  type={service.type as "api" | "website" | "database" | "cdn"}
+                  status={service.status as "operational" | "degraded" | "down"}
+                  uptime={service.uptime || "0.0"}
+                  responseTime={service.responseTime || 0}
                   onClick={() => console.log(`Viewing ${service.name} details`)}
                 />
               ))}
@@ -211,8 +168,12 @@ export default function Dashboard() {
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {filteredServices.map((service) => (
                 <ServiceCard
-                  key={service.name}
-                  {...service}
+                  key={service.id}
+                  name={service.name}
+                  type={service.type as "api" | "website" | "database" | "cdn"}
+                  status={service.status as "operational" | "degraded" | "down"}
+                  uptime={service.uptime || "0.0"}
+                  responseTime={service.responseTime || 0}
                   onClick={() => console.log(`Viewing ${service.name} details`)}
                 />
               ))}
@@ -234,9 +195,33 @@ export default function Dashboard() {
             </div>
 
             <div className="space-y-4">
-              {incidents.map((incident, i) => (
-                <IncidentCard key={i} {...incident} />
-              ))}
+              {incidents.map((incident) => {
+                // Map service IDs to service names
+                const affectedServiceNames = incident.affectedServices
+                  .map((serviceId) => {
+                    const service = services.find(s => s.id === serviceId);
+                    return service?.name || serviceId;
+                  });
+
+                // Format the incident data for IncidentCard
+                const formattedIncident = {
+                  title: incident.title,
+                  affectedServices: affectedServiceNames,
+                  status: incident.status as "investigating" | "identified" | "monitoring" | "resolved",
+                  startedAt: incident.startedAt
+                    ? new Date(incident.startedAt).toLocaleString()
+                    : "Unknown",
+                  updates: incident.updates.map(update => ({
+                    timestamp: update.createdAt
+                      ? new Date(update.createdAt).toLocaleString()
+                      : "Unknown",
+                    status: update.status as "investigating" | "identified" | "monitoring" | "resolved",
+                    message: update.message,
+                  })),
+                };
+
+                return <IncidentCard key={incident.id} {...formattedIncident} />;
+              })}
             </div>
 
             {incidents.length === 0 && (

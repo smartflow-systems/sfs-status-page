@@ -1,6 +1,7 @@
 import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
+import { monitoringEngine } from "./monitoring";
 
 const app = express();
 
@@ -75,7 +76,24 @@ app.use((req, res, next) => {
     port,
     host: "0.0.0.0",
     reusePort: true,
-  }, () => {
+  }, async () => {
     log(`serving on port ${port}`);
+
+    // Start monitoring engine in production
+    if (app.get("env") !== "development") {
+      await monitoringEngine.start();
+    } else {
+      log("⚠️  Monitoring engine disabled in development mode");
+    }
+  });
+
+  // Graceful shutdown
+  process.on("SIGTERM", () => {
+    log("SIGTERM received, shutting down gracefully...");
+    monitoringEngine.stop();
+    server.close(() => {
+      log("Server closed");
+      process.exit(0);
+    });
   });
 })();
