@@ -1,0 +1,61 @@
+{
+  "theme": {
+    "name": "SFS Family Theme",
+    "version": "1.0.0",
+    "description": "Luxurious gold and marble design system for SmartFlow family products"
+  },
+  "colors": {
+    "black": "#0a0908",
+    "brown": "#1c1917",
+    "gold": "#d4af37",
+    "goldLight": "#f4e4c1",
+    "goldDark": "#b8962e",
+    "beige": "#f5f1e8",
+    "white": "#fefefe"
+  },
+  "spacing": {
+    "xs": "0.25rem",
+    "sm": "0.5rem",
+    "md": "1rem",
+    "lg": "1.5rem",
+    "xl": "2rem",
+    "2xl": "3rem",
+    "3xl": "4rem"
+  },
+  "borderRadius": {
+    "sm": "0.1875rem",
+    "md": "0.375rem",
+    "lg": "0.5625rem",
+    "xl": "0.75rem",
+    "2xl": "1rem",
+    "full": "9999px"
+  },
+  "animation": {
+    "duration": {
+      "fast": "150ms",
+      "normal": "250ms",
+      "slow": "350ms"
+    },
+    "easing": {
+      "crickit": "cubic-bezier(0.4, 0, 0.2, 1)",
+      "cricketIn": "cubic-bezier(0.32, 0, 0.67, 0)",
+      "cricketOut": "cubic-bezier(0.33, 1, 0.68, 1)"
+    }
+  },
+  "glassmorphism": {
+    "blur": "12px",
+    "opacity": 0.15,
+    "borderOpacity": 0.3,
+    "glowIntensity": 0.4
+  },
+  "circuitFlow": {
+    "lineColor": "#d4af37",
+    "nodeColor": "#f4e4c1",
+    "glowColor": "#d4af37",
+    "lineWidth": 1.5,
+    "nodeRadius": 3,
+    "glowRadius": 8,
+    "animationSpeed": 0.0008,
+    "gridSpacing": 150
+  }
+}

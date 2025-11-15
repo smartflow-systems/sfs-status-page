@@ -2,210 +2,104 @@
 @tailwind components;
 @tailwind utilities;
 
-/* LIGHT MODE */
+/* ============================================================================
+   # SFS FAMILY THEME - TAILWIND INTEGRATION
+   # Luxurious gold & marble color scheme for status page
+   ============================================================================ */
+
 :root {
-  /* Base Colors */
-  --background: 0 0% 100%;
-  --foreground: 0 0% 9%;
-  --border: 0 0% 91%;
-  --card: 0 0% 98%;
-  --card-foreground: 0 0% 9%;
-  --card-border: 0 0% 94%;
+  /* ## Base Colors - Dark Marble Background */
+  --background: 30 4% 4%;           /* Deep marble black #0a0908 */
+  --foreground: 40 60% 96%;         /* Warm white #fefefe */
+  --border: 40 20% 25%;             /* Subtle gold-brown */
+  --card: 30 4% 6%;                 /* Dark glass card */
+  --card-foreground: 40 60% 96%;
+  --card-border: 43 50% 45%;        /* Gold border */
 
-  /* Primary Brand Color - SFS Blue */
-  --primary: 221 83% 53%;
-  --primary-foreground: 210 40% 98%;
+  /* ## Primary - Luxurious Gold */
+  --primary: 43 64% 52%;            /* Rich gold #d4af37 */
+  --primary-foreground: 30 4% 4%;   /* Dark text on gold */
 
-  /* Secondary */
-  --secondary: 0 0% 88%;
-  --secondary-foreground: 0 0% 9%;
+  /* ## Secondary - Warm Brown */
+  --secondary: 30 8% 12%;           /* Deep brown #1c1917 */
+  --secondary-foreground: 40 60% 96%;
 
-  /* Muted */
-  --muted: 0 0% 92%;
-  --muted-foreground: 0 0% 45%;
+  /* ## Muted - Subtle Tones */
+  --muted: 30 6% 15%;               /* Muted brown */
+  --muted-foreground: 40 20% 65%;   /* Warm gray */
 
-  /* Accent */
-  --accent: 220 14% 91%;
-  --accent-foreground: 0 0% 9%;
+  /* ## Accent - Light Gold */
+  --accent: 43 60% 88%;             /* Soft gold #f4e4c1 */
+  --accent-foreground: 30 4% 4%;
 
-  /* Destructive */
-  --destructive: 0 84% 60%;
-  --destructive-foreground: 0 0% 98%;
+  /* ## Destructive - Warm Red */
+  --destructive: 0 70% 50%;
+  --destructive-foreground: 40 60% 96%;
 
-  /* Form Elements */
-  --input: 0 0% 80%;
-  --ring: 221 83% 53%;
+  /* ## Form Elements */
+  --input: 30 8% 20%;
+  --ring: 43 64% 52%;               /* Gold focus ring */
 
-  /* Sidebar */
-  --sidebar: 0 0% 96%;
-  --sidebar-foreground: 0 0% 9%;
-  --sidebar-border: 0 0% 92%;
-  --sidebar-primary: 221 83% 53%;
-  --sidebar-primary-foreground: 210 40% 98%;
-  --sidebar-accent: 0 0% 90%;
-  --sidebar-accent-foreground: 0 0% 9%;
-  --sidebar-ring: 221 83% 53%;
+  /* ## Sidebar */
+  --sidebar: 30 4% 6%;
+  --sidebar-foreground: 40 60% 96%;
+  --sidebar-border: 43 40% 35%;
+  --sidebar-primary: 43 64% 52%;
+  --sidebar-primary-foreground: 30 4% 4%;
+  --sidebar-accent: 30 6% 12%;
+  --sidebar-accent-foreground: 40 60% 96%;
+  --sidebar-ring: 43 64% 52%;
 
-  /* Popover */
-  --popover: 0 0% 94%;
-  --popover-foreground: 0 0% 9%;
-  --popover-border: 0 0% 91%;
+  /* ## Popover */
+  --popover: 30 6% 8%;
+  --popover-foreground: 40 60% 96%;
+  --popover-border: 43 50% 40%;
 
-  /* Chart Colors */
-  --chart-1: 221 83% 45%;
-  --chart-2: 142 76% 36%;
-  --chart-3: 280 65% 47%;
-  --chart-4: 24 95% 53%;
-  --chart-5: 340 82% 52%;
+  /* ## Chart Colors - Gold Tones */
+  --chart-1: 43 64% 52%;            /* Primary gold */
+  --chart-2: 35 55% 48%;            /* Amber */
+  --chart-3: 25 50% 45%;            /* Bronze */
+  --chart-4: 15 60% 50%;            /* Copper */
+  --chart-5: 40 70% 55%;            /* Bright gold */
 
-  /* SFS Elevation System (unique to SFS) */
-  --elevate-1: rgba(0,0,0, .03);
-  --elevate-2: rgba(0,0,0, .08);
-  --button-outline: rgba(0,0,0, .10);
-  --badge-outline: rgba(0,0,0, .05);
-  --opaque-button-border-intensity: -8;
-  --font-sans: Inter, sans-serif;
-  --font-serif: Georgia, serif;
-  --font-mono: Menlo, monospace;
-  --radius: .5rem;
-  --shadow-2xs: 0px 2px 0px 0px hsl(0 0% 0% / 0.00);
-  --shadow-xs: 0px 2px 0px 0px hsl(0 0% 0% / 0.00);
-  --shadow-sm: 0px 2px 0px 0px hsl(0 0% 0% / 0.00), 0px 1px 2px -1px hsl(0 0% 0% / 0.00);
-  --shadow: 0px 2px 0px 0px hsl(0 0% 0% / 0.00), 0px 1px 2px -1px hsl(0 0% 0% / 0.00);
-  --shadow-md: 0px 2px 0px 0px hsl(0 0% 0% / 0.00), 0px 2px 4px -1px hsl(0 0% 0% / 0.00);
-  --shadow-lg: 0px 2px 0px 0px hsl(0 0% 0% / 0.00), 0px 4px 6px -1px hsl(0 0% 0% / 0.00);
-  --shadow-xl: 0px 2px 0px 0px hsl(0 0% 0% / 0.00), 0px 8px 10px -1px hsl(0 0% 0% / 0.00);
-  --shadow-2xl: 0px 2px 0px 0px hsl(0 0% 0% / 0.00);
-  --tracking-normal: 0em;
-  --spacing: 0.25rem;
+  /* ## SFS Elevation System - Gold Accents */
+  --elevate-1: rgba(212, 175, 55, 0.08);
+  --elevate-2: rgba(212, 175, 55, 0.15);
+  --button-outline: rgba(212, 175, 55, 0.3);
+  --badge-outline: rgba(212, 175, 55, 0.2);
+  --opaque-button-border-intensity: 8;
 
-/* Fallback for older browsers */
-  --sidebar-primary-border: hsl(var(--sidebar-primary));
-  --sidebar-primary-border: hsl(from hsl(var(--sidebar-primary)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
+  /* ## Font Families */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-mono: 'JetBrains Mono', Menlo, monospace;
 
-  /* Fallback for older browsers */
-  --sidebar-accent-border: hsl(var(--sidebar-accent));
-  --sidebar-accent-border: hsl(from hsl(var(--sidebar-accent)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
+  /* ## Border Radius */
+  --radius: .5625rem;
 
-  /* Fallback for older browsers */
-  --primary-border: hsl(var(--primary));
-  --primary-border: hsl(from hsl(var(--primary)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
-
-  /* Fallback for older browsers */
-  --secondary-border: hsl(var(--secondary));
-  --secondary-border: hsl(from hsl(var(--secondary)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
-
-  /* Fallback for older browsers */
-  --muted-border: hsl(var(--muted));
-  --muted-border: hsl(from hsl(var(--muted)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
-
-  /* Fallback for older browsers */
-  --accent-border: hsl(var(--accent));
-  --accent-border: hsl(from hsl(var(--accent)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
-
-  /* Fallback for older browsers */
-  --destructive-border: hsl(var(--destructive));
-  --destructive-border: hsl(from hsl(var(--destructive)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
+  /* ## Shadows (subtle gold glow) */
+  --shadow-2xs: 0px 2px 4px rgba(212, 175, 55, 0.05);
+  --shadow-xs: 0px 2px 8px rgba(212, 175, 55, 0.08);
+  --shadow-sm: 0px 4px 12px rgba(212, 175, 55, 0.10);
+  --shadow: 0px 8px 16px rgba(212, 175, 55, 0.12);
+  --shadow-md: 0px 12px 24px rgba(212, 175, 55, 0.15);
+  --shadow-lg: 0px 16px 32px rgba(212, 175, 55, 0.18);
+  --shadow-xl: 0px 24px 48px rgba(212, 175, 55, 0.20);
+  --shadow-2xl: 0px 32px 64px rgba(212, 175, 55, 0.25);
 }
 
+/* ## Dark Mode (Enhanced Darkness) */
 .dark {
-  /* Base Colors */
-  --background: 0 0% 3.9%;
-  --foreground: 0 0% 98%;
-  --border: 0 0% 14.9%;
-  --card: 0 0% 5.5%;
-  --card-foreground: 0 0% 98%;
-  --card-border: 0 0% 8%;
-
-  /* Primary Brand Color - SFS Blue */
-  --primary: 221 83% 53%;
-  --primary-foreground: 210 40% 98%;
-
-  /* Secondary */
-  --secondary: 0 0% 14%;
-  --secondary-foreground: 0 0% 98%;
-
-  /* Muted */
-  --muted: 0 0% 13%;
-  --muted-foreground: 0 0% 63%;
-
-  /* Accent */
-  --accent: 220 14% 16%;
-  --accent-foreground: 220 14% 88%;
-
-  /* Destructive */
-  --destructive: 0 84% 60%;
-  --destructive-foreground: 0 0% 98%;
-
-  /* Form Elements */
-  --input: 0 0% 30%;
-  --ring: 221 83% 53%;
-
-  /* Sidebar */
-  --sidebar: 0 0% 11%;
-  --sidebar-foreground: 0 0% 98%;
-  --sidebar-border: 0 0% 14%;
-  --sidebar-primary: 221 83% 53%;
-  --sidebar-primary-foreground: 210 40% 98%;
-  --sidebar-accent: 0 0% 14%;
-  --sidebar-accent-foreground: 0 0% 98%;
-  --sidebar-ring: 221 83% 53%;
-
-  /* Popover */
-  --popover: 0 0% 13%;
-  --popover-foreground: 0 0% 98%;
-  --popover-border: 0 0% 16%;
-
-  /* Chart Colors */
-  --chart-1: 221 83% 60%;
-  --chart-2: 142 70% 50%;
-  --chart-3: 280 65% 60%;
-  --chart-4: 24 95% 60%;
-  --chart-5: 340 82% 60%;
-
-  /* SFS Elevation System */
-  --elevate-1: rgba(255,255,255, .04);
-  --elevate-2: rgba(255,255,255, .09);
-  --button-outline: rgba(255,255,255, .10);
-  --badge-outline: rgba(255,255,255, .05);
-  --opaque-button-border-intensity: 9;
-  --shadow-2xs: 0px 2px 0px 0px hsl(0 0% 0% / 0.00);
-  --shadow-xs: 0px 2px 0px 0px hsl(0 0% 0% / 0.00);
-  --shadow-sm: 0px 2px 0px 0px hsl(0 0% 0% / 0.00), 0px 1px 2px -1px hsl(0 0% 0% / 0.00);
-  --shadow: 0px 2px 0px 0px hsl(0 0% 0% / 0.00), 0px 1px 2px -1px hsl(0 0% 0% / 0.00);
-  --shadow-md: 0px 2px 0px 0px hsl(0 0% 0% / 0.00), 0px 2px 4px -1px hsl(0 0% 0% / 0.00);
-  --shadow-lg: 0px 2px 0px 0px hsl(0 0% 0% / 0.00), 0px 4px 6px -1px hsl(0 0% 0% / 0.00);
-  --shadow-xl: 0px 2px 0px 0px hsl(0 0% 0% / 0.00), 0px 8px 10px -1px hsl(0 0% 0% / 0.00);
-  --shadow-2xl: 0px 2px 0px 0px hsl(0 0% 0% / 0.00);
-
-/* Fallback for older browsers */
-  --sidebar-primary-border: hsl(var(--sidebar-primary));
-  --sidebar-primary-border: hsl(from hsl(var(--sidebar-primary)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
-
-  /* Fallback for older browsers */
-  --sidebar-accent-border: hsl(var(--sidebar-accent));
-  --sidebar-accent-border: hsl(from hsl(var(--sidebar-accent)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
-
-  /* Fallback for older browsers */
-  --primary-border: hsl(var(--primary));
-  --primary-border: hsl(from hsl(var(--primary)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
-
-  /* Fallback for older browsers */
-  --secondary-border: hsl(var(--secondary));
-  --secondary-border: hsl(from hsl(var(--secondary)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
-
-  /* Fallback for older browsers */
-  --muted-border: hsl(var(--muted));
-  --muted-border: hsl(from hsl(var(--muted)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
-
-  /* Fallback for older browsers */
-  --accent-border: hsl(var(--accent));
-  --accent-border: hsl(from hsl(var(--accent)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
-
-  /* Fallback for older browsers */
-  --destructive-border: hsl(var(--destructive));
-  --destructive-border: hsl(from hsl(var(--destructive)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
+  --background: 30 4% 3%;           /* Even darker */
+  --card: 30 4% 5%;
+  --muted: 30 6% 10%;
+  --elevate-1: rgba(212, 175, 55, 0.12);
+  --elevate-2: rgba(212, 175, 55, 0.20);
 }
+
+/* ============================================================================
+   # BASE LAYER STYLES
+   ============================================================================ */
 
 @layer base {
   * {
@@ -215,116 +109,226 @@
   body {
     @apply font-sans antialiased bg-background text-foreground;
   }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif;
+  }
 }
 
-/**
- * Using the elevate system.
- * Automatic contrast adjustment.
- *
- * <element className="hover-elevate" />
- * <element className="active-elevate-2" />
- *
- * // Using the tailwind utility when a data attribute is "on"
- * <element className="toggle-elevate data-[state=on]:toggle-elevated" />
- * // Or manually controlling the toggle state
- * <element className="toggle-elevate toggle-elevated" />
- *
- * Elevation systems have to handle many states.
- * - not-hovered, vs. hovered vs. active  (three mutually exclusive states)
- * - toggled or not
- * - focused or not (this is not handled with these utilities)
- *
- * Even without handling focused or not, this is six possible combinations that
- * need to be distinguished from eachother visually.
- */
+/* ============================================================================
+   # ELEVATION UTILITIES
+   # Hover and active states with gold glow
+   ============================================================================ */
+
 @layer utilities {
-
-  /* Hide ugly search cancel button in Chrome until we can style it properly */
-  input[type="search"]::-webkit-search-cancel-button {
-    @apply hidden;
+  /* ## Hover Elevate */
+  .hover-elevate {
+    position: relative;
+    transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  /* Placeholder styling for contentEditable div */
-  [contenteditable][data-placeholder]:empty::before {
-    content: attr(data-placeholder);
-    color: hsl(var(--muted-foreground));
-    pointer-events: none;
-  }
-
-  /* .no-default-hover-elevate/no-default-active-elevate is an escape hatch so consumers of
-   * buttons/badges can remove the automatic brightness adjustment on interactions
-   * and program their own. */
-  .no-default-hover-elevate {}
-
-  .no-default-active-elevate {}
-
-
-  /**
-   * Toggleable backgrounds go behind the content. Hoverable/active goes on top.
-   * This way they can stack/compound. Both will overlap the parent's borders!
-   * So borders will be automatically adjusted both on toggle, and hover/active,
-   * and they will be compounded.
-   */
-  .toggle-elevate::before,
-  .toggle-elevate-2::before {
-    content: "";
-    pointer-events: none;
+  .hover-elevate::after {
+    content: '';
     position: absolute;
-    inset: 0px;
-    /*border-radius: inherit;   match rounded corners */
+    inset: 0;
     border-radius: inherit;
+    background: transparent;
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .hover-elevate:hover::after {
+    background-color: var(--elevate-1);
+  }
+
+  .hover-elevate:hover {
+    box-shadow: 0 4px 16px rgba(212, 175, 55, 0.2);
+  }
+
+  /* ## Active Elevate */
+  .active-elevate:active::after {
+    background-color: var(--elevate-2);
+  }
+
+  /* ## Toggle Elevate */
+  .toggle-elevate::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: transparent;
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
     z-index: -1;
-    /* sits behind content but above backdrop */
   }
 
   .toggle-elevate.toggle-elevated::before {
     background-color: var(--elevate-2);
   }
 
-  /* If there's a 1px border, adjust the inset so that it covers that parent's border */
-  .border.toggle-elevate::before {
-    inset: -1px;
+  /* ## Hide Search Cancel Button */
+  input[type="search"]::-webkit-search-cancel-button {
+    @apply hidden;
   }
 
-  /* Does not work on elements with overflow:hidden! */
-  .hover-elevate:not(.no-default-hover-elevate),
-  .active-elevate:not(.no-default-active-elevate),
-  .hover-elevate-2:not(.no-default-hover-elevate),
-  .active-elevate-2:not(.no-default-active-elevate) {
-    position: relative;
-    z-index: 0;
-  }
-
-  .hover-elevate:not(.no-default-hover-elevate)::after,
-  .active-elevate:not(.no-default-active-elevate)::after,
-  .hover-elevate-2:not(.no-default-hover-elevate)::after,
-  .active-elevate-2:not(.no-default-active-elevate)::after {
-    content: "";
+  /* ## Placeholder for ContentEditable */
+  [contenteditable][data-placeholder]:empty::before {
+    content: attr(data-placeholder);
+    color: hsl(var(--muted-foreground));
     pointer-events: none;
-    position: absolute;
-    inset: 0px;
-    /*border-radius: inherit;   match rounded corners */
-    border-radius: inherit;
-    z-index: 999;
-    /* sits in front of content */
-  }
-
-  .hover-elevate:hover:not(.no-default-hover-elevate)::after,
-  .active-elevate:active:not(.no-default-active-elevate)::after {
-    background-color: var(--elevate-1);
-  }
-
-  .hover-elevate-2:hover:not(.no-default-hover-elevate)::after,
-  .active-elevate-2:active:not(.no-default-active-elevate)::after {
-    background-color: var(--elevate-2);
-  }
-
-  /* If there's a 1px border, adjust the inset so that it covers that parent's border */
-  .border.hover-elevate:not(.no-hover-interaction-elevate)::after,
-  .border.active-elevate:not(.no-active-interaction-elevate)::after,
-  .border.hover-elevate-2:not(.no-hover-interaction-elevate)::after,
-  .border.active-elevate-2:not(.no-active-interaction-elevate)::after,
-  .border.hover-elevate:not(.no-hover-interaction-elevate)::after {
-    inset: -1px;
   }
 }
+
+/* ============================================================================
+   # CUSTOM COMPONENTS LAYER
+   ============================================================================ */
+
+@layer components {
+  /* ## Glass Card with Gold Border */
+  .glass-card-tw {
+    @apply bg-card/40 backdrop-blur-xl border border-[#d4af3780] rounded-lg;
+    @apply transition-all duration-300 hover:border-[#d4af37] hover:shadow-lg;
+  }
+
+  /* ## Gold Button */
+  .btn-gold-tw {
+    @apply bg-gradient-to-br from-[#d4af37] to-[#b8962e];
+    @apply text-[#0a0908] font-semibold px-6 py-3 rounded-md;
+    @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5;
+    @apply active:translate-y-0;
+  }
+
+  /* ## Status Badges */
+  .status-operational-tw {
+    @apply inline-flex items-center gap-2 px-3 py-1.5 rounded-full;
+    @apply bg-[#d4af371a] border border-[#d4af3766] text-[#f4e4c1];
+    @apply text-sm font-semibold backdrop-blur-sm;
+  }
+
+  .status-degraded-tw {
+    @apply inline-flex items-center gap-2 px-3 py-1.5 rounded-full;
+    @apply bg-[#f59e0b1a] border border-[#f59e0b66] text-[#fbbf24];
+    @apply text-sm font-semibold backdrop-blur-sm;
+  }
+
+  .status-down-tw {
+    @apply inline-flex items-center gap-2 px-3 py-1.5 rounded-full;
+    @apply bg-[#dc26261a] border border-[#dc262666] text-[#fca5a5];
+    @apply text-sm font-semibold backdrop-blur-sm;
+  }
+
+  /* ## Gold Text Gradient */
+  .text-gold-gradient {
+    @apply bg-gradient-to-br from-[#f4e4c1] via-[#d4af37] to-[#b8962e];
+    @apply bg-clip-text text-transparent font-bold;
+  }
+}
+
+/* ============================================================================
+   # GLASSMORPHISM HEADER
+   ============================================================================ */
+
+.glass-header {
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 9, 8, 0.95) 0%,
+    rgba(28, 25, 23, 0.9) 100%
+  );
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+/* ============================================================================
+   # SCROLLBAR STYLING
+   ============================================================================ */
+
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1c1917;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #d4af37 0%, #b8962e 100%);
+  border-radius: 6px;
+  border: 2px solid #1c1917;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #f4e4c1 0%, #d4af37 100%);
+}
+
+/* ============================================================================
+   # TEXT SELECTION
+   ============================================================================ */
+
+::selection {
+  background: rgba(212, 175, 55, 0.3);
+  color: #f5f1e8;
+}
+
+::-moz-selection {
+  background: rgba(212, 175, 55, 0.3);
+  color: #f5f1e8;
+}
+
+/* ============================================================================
+   # ANIMATIONS
+   ============================================================================ */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes goldShimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(212, 175, 55, 0.4);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 350ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.animate-shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(212, 175, 55, 0.3) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: goldShimmer 2s infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* ============================================================================
+   # END SFS FAMILY THEME INTEGRATION
+   ============================================================================ */

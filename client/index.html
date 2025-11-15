@@ -4,14 +4,27 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
     <link rel="icon" type="image/png" href="/favicon.png" />
-    <title>Status Monitor - Uptime Monitoring</title>
-    <meta name="description" content="Real-time uptime monitoring and status page for your services. Track service health, response times, and incidents with automated ping checks.">
+    <title>SFS Status - Luxurious Uptime Monitoring</title>
+    <meta name="description" content="Premium status page with real-time monitoring. Track service health with our elegant gold-themed dashboard. Automated health checks, instant alerts, and beautiful glassmorphism design.">
+
+    <!-- # SFS Family Theme Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- # SFS Family Theme Stylesheets -->
+    <link rel="stylesheet" href="/theme/sfs-globals.css" />
+    <link rel="stylesheet" href="/theme/sfs-complete-theme.css" />
   </head>
-  <body>
+  <body class="marble-bg">
+    <!-- # Golden Circuit Flow Background -->
+    <canvas id="sfs-circuit"></canvas>
+
+    <!-- # Main Application -->
     <div id="root"></div>
+
+    <!-- # Scripts -->
+    <script src="/theme/sfs-circuit-flow.js"></script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
