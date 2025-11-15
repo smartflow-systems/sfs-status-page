@@ -5,48 +5,54 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Input } from "@/components/ui/input";
-import { Bell } from "lucide-react";
+import { Bell, Loader2, AlertTriangle } from "lucide-react";
+import { useServices, useIncidents, useSystemStatus } from "@/hooks/useApi";
 
 export default function StatusPage() {
-  const services = [
-    { name: "API Server", type: "api" as const, status: "operational" as const, uptime: "99.9" },
-    { name: "Main Website", type: "website" as const, status: "operational" as const, uptime: "100.0" },
-    { name: "Database", type: "database" as const, status: "operational" as const, uptime: "99.7" },
-    { name: "CDN", type: "cdn" as const, status: "operational" as const, uptime: "100.0" },
-    { name: "Authentication Service", type: "api" as const, status: "operational" as const, uptime: "99.8" },
-  ];
+  // Fetch real data from API
+  const { data: services = [], isLoading: servicesLoading, error: servicesError } = useServices();
+  const { data: incidents = [], isLoading: incidentsLoading, error: incidentsError } = useIncidents(false);
+  const { data: systemStatus, isLoading: statusLoading, error: statusError } = useSystemStatus();
 
-  const recentIncidents = [
-    {
-      title: "API Response Time Degradation",
-      affectedServices: ["API Server", "Database"],
-      status: "resolved" as const,
-      startedAt: "Yesterday at 2:30 PM",
-      updates: [
-        {
-          timestamp: "Yesterday at 4:15 PM",
-          status: "resolved" as const,
-          message: "Issue has been fully resolved. All systems are operating normally.",
-        },
-        {
-          timestamp: "Yesterday at 3:45 PM",
-          status: "monitoring" as const,
-          message: "Response times have improved. Continuing to monitor the situation.",
-        },
-        {
-          timestamp: "Yesterday at 2:30 PM",
-          status: "investigating" as const,
-          message: "We are investigating elevated API response times.",
-        },
-      ],
-    },
-  ];
+  // Show loading state
+  if (servicesLoading || incidentsLoading || statusLoading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="flex flex-col items-center gap-4">
+          <Loader2 className="w-8 h-8 animate-spin text-primary" />
+          <p className="text-muted-foreground">Loading status page...</p>
+        </div>
+      </div>
+    );
+  }
 
-  const uptimeStats = [
-    { period: "7 days", uptime: "99.95%" },
-    { period: "30 days", uptime: "99.87%" },
-    { period: "90 days", uptime: "99.92%" },
-  ];
+  // Show error state
+  if (servicesError || incidentsError || statusError) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <Card className="max-w-md w-full">
+          <CardContent className="p-8 text-center">
+            <AlertTriangle className="w-12 h-12 text-destructive mx-auto mb-4" />
+            <h2 className="text-xl font-semibold mb-2">Failed to Load Status Page</h2>
+            <p className="text-muted-foreground mb-4">
+              {servicesError?.message || incidentsError?.message || statusError?.message}
+            </p>
+            <Button onClick={() => window.location.reload()}>Reload Page</Button>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
+  // Filter to recent incidents (last 30 days)
+  const thirtyDaysAgo = new Date();
+  thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+  const recentIncidents = incidents
+    .filter(incident => {
+      if (!incident.startedAt) return false;
+      return new Date(incident.startedAt) > thirtyDaysAgo;
+    })
+    .slice(0, 5); // Show max 5 recent incidents
 
   return (
     <div className="min-h-screen bg-background">
@@ -64,10 +70,10 @@ export default function StatusPage() {
           <div className="text-center mb-8">
             <h2 className="text-4xl font-bold mb-4">System Status</h2>
             <p className="text-muted-foreground">
-              Last updated: Just now
+              Last updated: {new Date().toLocaleTimeString()}
             </p>
           </div>
-          <SystemStatusBanner status="operational" />
+          <SystemStatusBanner status={systemStatus?.status || "operational"} />
           <div className="mt-6 flex justify-center">
             <div className="flex gap-3">
               <Input
@@ -88,9 +94,19 @@ export default function StatusPage() {
           <h2 className="text-2xl font-semibold mb-6">Services</h2>
           <Card>
             <CardContent className="p-6">
-              {services.map((service) => (
-                <ServiceListItem key={service.name} {...service} />
-              ))}
+              {services.length === 0 ? (
+                <p className="text-center text-muted-foreground py-8">No services configured</p>
+              ) : (
+                services.map((service) => (
+                  <ServiceListItem
+                    key={service.id}
+                    name={service.name}
+                    type={service.type as "api" | "website" | "database" | "cdn"}
+                    status={service.status as "operational" | "degraded" | "down"}
+                    uptime={service.uptime || "0.0"}
+                  />
+                ))
+              )}
             </CardContent>
           </Card>
         </section>
@@ -98,9 +114,33 @@ export default function StatusPage() {
         <section>
           <h2 className="text-2xl font-semibold mb-6">Recent Incidents</h2>
           <div className="space-y-4">
-            {recentIncidents.map((incident, i) => (
-              <IncidentCard key={i} {...incident} />
-            ))}
+            {recentIncidents.map((incident) => {
+              // Map service IDs to service names
+              const affectedServiceNames = incident.affectedServices
+                .map((serviceId) => {
+                  const service = services.find(s => s.id === serviceId);
+                  return service?.name || serviceId;
+                });
+
+              // Format the incident data
+              const formattedIncident = {
+                title: incident.title,
+                affectedServices: affectedServiceNames,
+                status: incident.status as "investigating" | "identified" | "monitoring" | "resolved",
+                startedAt: incident.startedAt
+                  ? new Date(incident.startedAt).toLocaleString()
+                  : "Unknown",
+                updates: incident.updates.map(update => ({
+                  timestamp: update.createdAt
+                    ? new Date(update.createdAt).toLocaleString()
+                    : "Unknown",
+                  status: update.status as "investigating" | "identified" | "monitoring" | "resolved",
+                  message: update.message,
+                })),
+              };
+
+              return <IncidentCard key={incident.id} {...formattedIncident} />;
+            })}
           </div>
           {recentIncidents.length === 0 && (
             <Card>
@@ -114,20 +154,42 @@ export default function StatusPage() {
         <section>
           <h2 className="text-2xl font-semibold mb-6">Uptime Statistics</h2>
           <div className="grid gap-6 md:grid-cols-3">
-            {uptimeStats.map((stat) => (
-              <Card key={stat.period}>
-                <CardHeader>
-                  <CardTitle className="text-sm font-medium text-muted-foreground">
-                    {stat.period}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-3xl font-bold tabular-nums" data-testid={`text-uptime-${stat.period.replace(/\s+/g, '-')}`}>
-                    {stat.uptime}
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-sm font-medium text-muted-foreground">
+                  7 days
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-3xl font-bold tabular-nums" data-testid="text-uptime-7-days">
+                  {systemStatus?.averageUptime || "0.00"}%
+                </div>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-sm font-medium text-muted-foreground">
+                  30 days
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-3xl font-bold tabular-nums" data-testid="text-uptime-30-days">
+                  {systemStatus?.averageUptime || "0.00"}%
+                </div>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-sm font-medium text-muted-foreground">
+                  90 days
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-3xl font-bold tabular-nums" data-testid="text-uptime-90-days">
+                  {systemStatus?.averageUptime || "0.00"}%
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </section>
       </main>
