@@ -1,6 +1,7 @@
 import type { Express, Request, Response } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
+import { monitoringEngine } from "./monitoring";
 import {
   insertServiceSchema,
   updateServiceSchema,
@@ -55,6 +56,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       const service = await storage.createService(result.data);
+
+      // Start monitoring the new service
+      await monitoringEngine.monitorService(service.id);
+
       res.status(201).json(service);
     } catch (error) {
       console.error("Error creating service:", error);
@@ -90,6 +95,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // DELETE /api/services/:id - Delete a service
   app.delete("/api/services/:id", async (req: Request, res: Response) => {
     try {
+      // Stop monitoring before deleting
+      monitoringEngine.stopMonitoringService(req.params.id);
+
       const deleted = await storage.deleteService(req.params.id);
       if (!deleted) {
         return res.status(404).json({ message: "Service not found" });
