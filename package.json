@@ -1,5 +1,5 @@
 {
-  "name": "rest-express",
+  "name": "sfs-status-page",
   "version": "1.0.0",
   "type": "module",
   "license": "MIT",
@@ -111,5 +111,6 @@
   },
   "optionalDependencies": {
     "bufferutil": "^4.0.8"
-  }
+  },
+  "description": "SmartFlow Systems uptime monitoring and incident status page"
 }
